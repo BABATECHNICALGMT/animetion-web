@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viweport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<style type="text/css">
+        *{
+            margin: 0;
+            padding: 0;
+
+        }
+        header{
+            width: 100%;
+            height: 100vh;
+            position: relative;
+        }
+		#canvas{
+            background: #262626;
+            width: 100%;
+            height: 100vh;
+            position: fixed;
+            z-index: -1;
+        }
+        .navbar{
+             width: 100%;
+             height: 100px;
+             position: absolute;
+        }
+      .loge{
+            width: 30%;
+            line-height: 100px;
+            text-align: center;
+            text-transform: uppercase; 
+            float: left; 
+        }
+        h2{
+            font-size: 30px;
+            color: red;
+        }
+    .main{
+            width: 70%;
+            line-height: 100px;
+            float: right;
+            
+    }
+
+    ul{
+        list-style: none;
+        text-align: right;
+    }
+    li{
+        display: inline-block;
+        padding: 0 20px;
+        margin-right: 40px;
+    }
+    a{
+        text-decoration: none;
+        font-size: 25px;
+        color: wheat;
+    }
+     #text1{
+         position: absolute;
+         top: 50%;
+         left: 50%;
+         color: white;
+         transform: translate(-50%, -50%);
+        }
+        h3{
+        position: absolute;
+         top: 40%;
+         left: 50%;
+         color: white;
+         font-size: 40px;
+         font-family:;
+         transform: translate(-50%, -50%);
+        }
+        @font-face{
+            font-family: Playlist_Script;
+            src: url('font/Playlist_Script.otf');
+        }
+         h3{
+            font-size: 50px;
+            font-family: Playlist_Script ;
+             
+        }
+        
+    .colorchenng{
+          color: red;
+    }
+/* media query start Tablate and phone size*/
+
+@media (max-width:1180px) {
+
+      navbar{
+               width: 100%;
+         }
+          .loge{
+            width: 30%;
+           }
+        h2{
+            font-size: 20px;
+    
+        }
+        .main{
+            width: 70%;
+        }
+        
+         li{
+          padding: 0 10px;
+          margin-right: 10px;
+    }
+    a{
+        
+        font-size: 20px;
+    }
+    h3{
+    font-size: 25px;
+   }
+   .text1{
+          font-size: 30px;
+   }
+   }
+    /* media query start Tablate and phone size*/
+   
+   @media (max-width:768px) {
+
+      navbar{
+               width: 100%;
+         }
+          .loge{
+            width: 50%;
+           }
+        .loge h2{
+            font-size: 20px;
+            
+        }
+   
+  li{
+          display: none;
+          padding: 0 5px;
+          margin-right: 10px;
+    }
+    a{
+        
+        font-size: 15px;
+    }
+   h3{
+    font-size: 25px;
+   }
+   .text1{
+          font-size: 20px;
+   }
+   }
+
+  
+	</style>
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <div class="loge">
+               <h2>baba technical gmt</h2>
+            </div>
+            <div class="main">
+                <div class="toggle">
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About us</a></li>
+                    <li><a href="#">Sevices</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Contacts</a></li>
+                </ul>
+            </div>
+            </div>
+        </div>
+         <h3 >Hello My SIKENDAR.</h3>
+      <div id="text1">
+
+          <h1>I Am Student <span class="colorchenng">For </span><span class="typing"></span></h1>
+      </div>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.js"></script>
+
+    <script src="javascript/typed.min.js"></script>
+
+      <script type="text/javascript">
+
+        var typed = new Typed('.typing', {
+      strings: ["You  Tuber", "Designer", "Developer",], typeSpeed: 75, backSpeed: 30, loop: true });
+    </script>
+	<canvas id="canvas"></canvas>
+    <script type="text/javascript">
+		var w, h, loopId, id, canvas, ctx, particles;
+
+
+        var options = {
+        	particleColor: "rgba(255,255,255)",
+        	lineColor: "rgba(0,181,255)",
+        	particleAmount: 50,
+        	defaultRadius: 2,
+        	variantRadius: 2,
+        	defaultSpeed: 1,
+        	variantSpeed: 1,
+        	linkRadius: 280
+
+        };
+        var rgb = options.lineColor.match(/\d+/g);
+        document.addEventListener("DOMContentLoaded", init);
+        function init() {
+        	canvas = document.getElementById("canvas");
+        	ctx = canvas.getContext("2d");
+        	resizeReset();
+        	initialiseElements();
+        	startAnimation();
+        }
+        function resizeReset() {
+        	w = canvas.width = window.innerWidth;
+        	h = canvas.height = window.innerHeight;
+        } 
+        function initialiseElements() {
+        	particles =[];
+        	for(var i =0; i<options.particleAmount; i++) {
+            particles.push(new Particle());
+        }
+    }
+      function startAnimation() {
+        loopId = requestAnimationFrame(animationLoop);
+      }
+
+      function animationLoop() {
+      	ctx.clearRect(0,0,w,h);
+      	drawScene();
+
+      	id = requestAnimationFrame(animationLoop);
+      }
+
+      function drawScene(){
+      	drawLine();
+      	drawParticle();
+      }
+
+        function drawParticle(){
+        	for(var i =0; i<particles.length; i++) {
+        		particles[i].update();
+        		particles[i].draw();
+        	}
+        }
+        
+        function drawLine(){
+        	for(var i =0; i < particles.length; i++) {
+        		linkPoints(particles[i], particles);
+        	}
+        }
+
+        function linkPoints(point,hubs) {
+           for(var i =0; i < hubs.length; i++) {
+            var distance = checkDistance(point.x,point.y, hubs[i].x, hubs[i].y);
+            var opacity = 1 - distance / options.linkRadius;
+            if (opacity > 0) {
+            	ctx.lineWidth = 0.5;
+                ctx.strokeStyle = 'rgba('+rgb[0]+','+rgb[1]+','+rgb[2]+','+opacity+')';
+                ctx.beginPath();
+                ctx.moveTo(point.x, point.y);
+                ctx.lineTo(hubs[i].x, hubs[i].y);
+                ctx.closePath();
+                ctx.stroke();
+            }
+           }
+        }
+
+        function checkDistance(x1, y1, x2, y2) {
+        	return Math.sqrt(Math.pow(x2-x1,2) + Math.pow(y2-y1,2));
+        }
+
+        Particle = function() {
+        	var _this = this;
+
+        _this.x = Math.random() * w;
+        _this.y = Math.random() * h;
+        _this.color = options.particleColor;
+        _this.radius = options.defaultRadius + Math.random() * options.variantRadius;
+        _this.speed = options.defaultSpeed + Math.random() * options.variantSpeed;
+        _this.directionAngle = Math.floor(Math.random() * 360);
+        _this.vector = {
+        	x: Math.cos(_this.directionAngle) * _this.speed,
+        	y: Math.sin(_this.directionAngle) * _this.speed
+        }
+        _this.update = function() {
+          _this.border();
+          _this.x += _this.vector.x;
+           _this.y += _this.vector.y;
+        }
+        _this.border = function() {
+        	if (_this.x >= w|| _this.x <=0){
+        		_this.vector.x *= -1;
+        	}
+        	if (_this.y >= h|| _this.y <=0){
+        		_this.vector.y *= -1;
+        	}
+        	if (_this.x > w) _this.x =w;
+        	if (_this.y > h) _this.y =h;
+        	if (_this.x < 0) _this.x =0;
+        	if (_this.y < 0) _this.y =0;
+        }
+        _this.draw = function() {
+        	ctx.beginPath();
+        	ctx.arc(_this.x, _this.y, _this.radius, 0, Math.PI * 2);
+        	ctx.closePath();
+        	ctx.fillStyle = _this.color;
+        	ctx.fill();
+        }
+     }
+
+	</script>
+
+    </header>
+   
+</body>
+</html>
